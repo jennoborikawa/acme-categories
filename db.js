@@ -16,12 +16,15 @@ module.exports = {
     getCategoryData: function(category){
         return _data[category]; 
     },
-    // addCategory: function(category){
-    //     _data[category] = category; 
-    // }, 
-    addProduct: function(category){
-        _data[category].push({name: category}); 
-    }
+    addCategory: function(category){
+        _data[category] = []; 
+    }, 
+    addProduct: function(category, product){
+        _data[category].push({name: product}); 
+    }, 
+    // deleteProduct: function(category, index){
+    //     _data[category][index];
+    // }
     
 }; 
 
