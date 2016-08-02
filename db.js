@@ -22,9 +22,9 @@ module.exports = {
     addProduct: function(category, product){
         _data[category].push({name: product}); 
     }, 
-    // deleteProduct: function(category, index){
-    //     _data[category][index];
-    // }
+    deleteProduct: function(category, index){
+        _data[category].splice([index], 1); 
+    }
     
 }; 
 
