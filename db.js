@@ -16,6 +16,9 @@ module.exports = {
     getCategoryData: function(category){
         return _data[category]; 
     },
+    // getProduct: function(category, index){
+    //     return _data[category][index]; 
+    // }, 
     addCategory: function(category){
         _data[category] = []; 
     }, 

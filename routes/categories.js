@@ -10,7 +10,7 @@ var router = express();
 router.get('/', function(req, res, next){
     res.render('index', {title: 'Home', _data: Db.getData(), 
     });
-    // console.log(Db.getData());
+    console.log(Db.getProduct('Books', 1));
 }); 
 
 // View Category 
@@ -37,17 +37,23 @@ router.post('/categories/:category/products', function(req, res, next){
 }); 
 
 router.delete('/categories/:category/products/:idx', function(req, res, next){
+    console.log(req.params.category, req.params.id); 
     Db.deleteProduct(req.params.category, req.params.idx*1); 
     res.render('category', {title: req.params.category, _data: Db.getData(), 
         categoryName: req.params.category,
         products: Db.getCategoryData(req.params.category),
-        idx: Db.getCategoryData(req.params.category).filter(function(product){
-            return indexOf(product === req.params.idx)
+        idx: Db.getCategoryData(req.params.category).filter(function(productToDelete){
+            return indexOf(productToDelete === product.name); 
         })
-    })
+    }); 
     // res.redirect('/categories/' + req.params.category); 
     
 }); 
 
 
 module.exports = router; 
+
+
+// define variables in views templates
+// req.params.___
+
