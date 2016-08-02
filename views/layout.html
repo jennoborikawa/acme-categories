@@ -1,0 +1,20 @@
+
+<html>
+    <head>
+        <title>{{ title }}</title>
+        <link rel='stylesheet' href="/bootstrap/dist/css/bootstrap.min.css">
+    </head>
+    <body>
+        
+        <!--Navigation-->
+        {% block nav %}
+        {% endblock %}
+           
+         <!--Content-->
+        <div class='container'>
+            {% block content %}
+            {% endblock %}
+        </div>
+    </body>
+    
+</html>

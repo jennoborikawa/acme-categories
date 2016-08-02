@@ -1,0 +1,35 @@
+
+{% extends 'layout.html' %}
+
+{% block nav %}
+
+    <!--Navigation-->
+    <ul class='nav nav-tabs'>
+            <li><a href='/'>Home</a></li>
+        {% for categoryName, products in _data %}  
+            <li><a href='/categories/{{ categoryName }}'>{{ categoryName }}</a></li>
+        {% endfor %}
+     </ul>  
+     
+{% endblock %}
+
+
+{% block content %}
+
+    <h1>Welcome Home!</h1>
+    
+    <!--New Category-->
+    <div class='well'>
+        <form method='POST' action='/categories'>
+            <label><strong>Category Name</strong></label>
+            <input type='text' class='form-control' name='name'/>
+            <button class='btn btn-primary' type='submit' style='margin-top:10px'>Save Category</button>
+        </form>
+    </div>
+
+{% endblock %} 
+
+
+<!--Variables to define in routes: -->
+<!--    _data-->
+<!--    title-->
