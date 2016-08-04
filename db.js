@@ -10,17 +10,20 @@ var _data = {
 }; 
 
 module.exports = {
+    categories: function(){
+      return Object.keys(this.getData());
+    },
     getData: function(){
       return _data;   
     },
-    getCategoryData: function(category){
+    getProducts: function(category){
         return _data[category]; 
     },
-    // getProduct: function(category, index){
-    //     return _data[category][index]; 
-    // }, 
     addCategory: function(category){
         _data[category] = []; 
+    }, 
+    deleteCategory: function(category){
+      delete _data[category];
     }, 
     addProduct: function(category, product){
         _data[category].push({name: product}); 

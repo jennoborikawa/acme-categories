@@ -1,59 +1,38 @@
-var express = require('express'); 
+var router = require('express').Router(); 
 var Db = require('../db.js'); 
-// var bodyParser = require('body-parser'); 
-
-var router = express(); 
-// router.use(bodyParser.urlencoded({extended: false})); 
 
 
-// View Home
-router.get('/', function(req, res, next){
-    res.render('index', {title: 'Home', _data: Db.getData(), 
-    });
-    console.log(Db.getProduct('Books', 1));
-}); 
-
-// View Category 
-router.get('/categories/:category', function(req, res, next){
-    res.render('category', {title: req.params.category, _data: Db.getData(), 
-        categoryName: req.params.category,
-        products: Db.getCategoryData(req.params.category), 
+router.get('/:category', function(req, res, next){
+    res.render('category', {
+        categories: Db.categories(),
+        title: req.params.category, 
+        category: req.params.category,
+        products: Db.getProducts(req.params.category), 
     });
 });
 
-// Add new category (post doesn't need swig variables passed in)
-router.post('/categories', function(req,res, next){
-    var newCategory = req.body.name; 
-    Db.addCategory(newCategory); 
-    res.redirect('/categories/' + newCategory); 
+router.post('/', function(req,res, next){
+    var category = req.body.name; 
+    Db.addCategory(category); 
+    res.redirect('/categories/' + category); 
 }); 
 
-// Add new product (post doesn't need swig variables passed in)
-router.post('/categories/:category/products', function(req, res, next){
-    var newProduct = req.body.name;
-    Db.addProduct(req.params.category, newProduct); 
+router.delete('/:category', function(req, res, next){
+    Db.deleteCategory(req.params.category); 
+    res.redirect('/'); 
+}); 
+
+router.post('/:category/products', function(req, res, next){
+    var product = req.body.name;
+    Db.addProduct(req.params.category, product); 
     res.redirect('/categories/' + req.params.category); 
     
 }); 
 
-router.delete('/categories/:category/products/:idx', function(req, res, next){
-    console.log(req.params.category, req.params.id); 
+router.delete('/:category/products/:idx', function(req, res, next){
     Db.deleteProduct(req.params.category, req.params.idx*1); 
-    res.render('category', {title: req.params.category, _data: Db.getData(), 
-        categoryName: req.params.category,
-        products: Db.getCategoryData(req.params.category),
-        idx: Db.getCategoryData(req.params.category).filter(function(productToDelete){
-            return indexOf(productToDelete === product.name); 
-        })
-    }); 
-    // res.redirect('/categories/' + req.params.category); 
-    
+    res.redirect('/categories/' + req.params.category); 
 }); 
 
 
 module.exports = router; 
-
-
-// define variables in views templates
-// req.params.___
-
