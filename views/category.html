@@ -6,6 +6,7 @@
     <!--Navigation-->
     <ul class='nav nav-tabs'>
         <li><a href='/'>Home</a></li>
+                                        <!--define _data in all app.gets' res.render -->
         {% for categoryName, products  in _data %}
             <li><a href='/categories/{{ categoryName }}'>{{ categoryName }}</a></li>
         {% endfor %}
@@ -19,7 +20,7 @@
     <!--Delete Category-->
     <button type='button' class='btn btn-danger' style='margin-top:10px'>Delete Category</button>
     
-    <!--Add new product -->
+    <!--Add new product // define categoryName in app.get for category in res.render // {var} in action-->
     <div class='well' style='margin-top:10px'>
         <form class='form-group' method='POST' action='/categories/{{categoryName}}/products'>
             <label><strong>Product Name</strong></label>
@@ -33,7 +34,7 @@
         {% for product in products %}
         <li class='list-group-item'>
             {{ product.name }}
-            <form method='POST' action='/categories/{{categoryName}}/products/{{idx}}/?_method=DELETE'>
+            <form method='POST' action='/categories/{{categoryName}}/products/{{product.name}}/?_method=DELETE'>
                 <button type='submit' class='btn btn-danger'>Delete</button>
             </form>
         </li>
@@ -48,3 +49,6 @@
 <!--categoryName-->
 <!--products-->
 <!--index -->
+
+<!--All swig variables defined within app.get inside of res.render -->
+<!--Variables-- {var} in views action, :var in routes path -->

@@ -10,13 +10,13 @@ app.set('view engine', 'html');
 app.engine('html', swig.renderFile); 
 
 app.use(bodyParser.urlencoded({extended: false}));
-app.use(bodyParser.json({}));
 
 app.use(methodOverride('_method')); 
 
 
 app.use(express.static(__dirname + '/node_modules'));
 
+//require routes, then use for app.use 
 var routes = require('./routes/categories.js'); 
 app.use(routes); 
 

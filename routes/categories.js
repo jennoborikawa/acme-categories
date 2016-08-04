@@ -8,14 +8,18 @@ var router = express();
 
 // View Home
 router.get('/', function(req, res, next){
-    res.render('index', {title: 'Home', _data: Db.getData(), 
+    res.render('index', {
+        title: 'Home', 
+        _data: Db.getData(), 
     });
-    console.log(Db.getProduct('Books', 1));
+    // console.log(Db.getProduct('Books', 1));
 }); 
 
 // View Category 
 router.get('/categories/:category', function(req, res, next){
-    res.render('category', {title: req.params.category, _data: Db.getData(), 
+    res.render('category', {
+        title: req.params.category, 
+        _data: Db.getData(), 
         categoryName: req.params.category,
         products: Db.getCategoryData(req.params.category), 
     });
@@ -36,17 +40,15 @@ router.post('/categories/:category/products', function(req, res, next){
     
 }); 
 
-router.delete('/categories/:category/products/:idx', function(req, res, next){
-    console.log(req.params.category, req.params.id); 
-    Db.deleteProduct(req.params.category, req.params.idx*1); 
-    res.render('category', {title: req.params.category, _data: Db.getData(), 
-        categoryName: req.params.category,
-        products: Db.getCategoryData(req.params.category),
-        idx: Db.getCategoryData(req.params.category).filter(function(productToDelete){
-            return indexOf(productToDelete === product.name); 
-        })
-    }); 
-    // res.redirect('/categories/' + req.params.category); 
+// router.delete('/', function(req, res, next){
+//     Db.deleteCategory(); 
+//     res.redirect('/'); 
+// }); 
+
+router.delete('/categories/:category/products/:productname', function(req, res, next){
+    // console.log(req.params.category, req.params.id); 
+    Db.deleteProduct(req.params.category, req.params.productname); 
+    res.redirect('/categories/' + req.params.category); 
     
 }); 
 
@@ -55,5 +57,9 @@ module.exports = router;
 
 
 // define variables in views templates
-// req.params.___
+
+// Grab data for defining variables in 2 ways: 
+    // req.params.___ (from the url)
+    // req.body.name (from the body of a form, needs name='name' att in view's form, require body-parser in the server)
+    
 

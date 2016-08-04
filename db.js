@@ -16,17 +16,25 @@ module.exports = {
     getCategoryData: function(category){
         return _data[category]; 
     },
-    // getProduct: function(category, index){
-    //     return _data[category][index]; 
-    // }, 
+    getProduct: function(category, index){
+        return _data[category][index]; 
+    }, 
     addCategory: function(category){
         _data[category] = []; 
     }, 
     addProduct: function(category, product){
         _data[category].push({name: product}); 
     }, 
-    deleteProduct: function(category, index){
-        _data[category].splice([index], 1); 
+    // deleteCategory: function(category){
+        
+    // }, 
+    deleteProduct: function(category, product){
+        //grab objItem to delete, find index, splice to delete 
+        var toDelete = _data[category].filter(function(prodObj){
+            return prodObj.name === product; 
+        }); 
+        var idx = _data[category].indexOf(toDelete); 
+        _data[category].splice([idx], 1); 
     }
     
 }; 
